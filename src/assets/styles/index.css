@@ -1,0 +1,209 @@
+/* ---------------------------------------------------------------------
+ * RPM Motors — CSS puro (sem framework). Um pequeno conjunto de classes
+ * reutilizáveis para não repetir estilo em cada página (mesmo objetivo de
+ * um framework, mas escrito por nós, dentro do que o módulo ensina:
+ * variáveis CSS, flexbox/grid e media query). Ver critério 10 (Responsividade).
+ * ------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  /* Paleta — tema RPM Motors */
+  --cor-primaria: #d62828;
+  --cor-primaria-escura: #a81f1f;
+  --cor-texto: #1b1b1f;
+  --cor-texto-suave: #5a5a63;
+  --cor-fundo: #f7f7f9;
+  --cor-superficie: #ffffff;
+  --cor-borda: #e2e2e7;
+  --cor-sucesso: #1f7a3f;
+  --cor-falha: #a81f1f;
+
+  --espaco-1: 0.5rem;
+  --espaco-2: 1rem;
+  --espaco-3: 1.5rem;
+  --espaco-4: 2.5rem;
+
+  --raio: 10px;
+  --sombra: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+a {
+  color: var(--cor-primaria);
+}
+
+/* Layout ---------------------------------------------------------- */
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--espaco-3) var(--espaco-2);
+}
+
+main {
+  min-height: 100dvh;
+}
+
+.grid {
+  display: grid;
+  gap: var(--espaco-3);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid--produtos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .grid--produtos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Componentes ------------------------------------------------------- */
+
+.card {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: var(--espaco-2);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--raio) - 4px);
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: var(--raio);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 0.15s ease;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn:not(:disabled):hover {
+  filter: brightness(0.92);
+}
+
+.btn--primario {
+  background: var(--cor-primaria);
+  color: #fff;
+}
+
+.btn--secundario {
+  background: transparent;
+  color: var(--cor-primaria);
+  border: 1px solid var(--cor-primaria);
+}
+
+/* Formulário (usado na tela de Pagamento) --------------------------- */
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: var(--espaco-2);
+}
+
+.campo label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.campo input {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  font-size: 1rem;
+}
+
+.campo input:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 1px;
+}
+
+.campo-erro {
+  color: var(--cor-falha);
+  font-size: 0.85rem;
+}
+
+/* Estados de resultado ------------------------------------------------ */
+
+.resultado {
+  text-align: center;
+  padding: var(--espaco-4) var(--espaco-2);
+}
+
+.resultado--sucesso h1 {
+  color: var(--cor-sucesso);
+}
+
+.resultado--falha h1 {
+  color: var(--cor-falha);
+}
+
+.texto-suave {
+  color: var(--cor-texto-suave);
+}
+
+/* Utilitários pontuais (poucos, de propósito — não é um framework) ---- */
+
+.mt-2 {
+  margin-top: var(--espaco-2);
+}
+
+.mt-3 {
+  margin-top: var(--espaco-3);
+}
+
+.acoes {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--espaco-3);
+}
+
+@media (max-width: 480px) {
+  .acoes {
+    justify-content: stretch;
+  }
+
+  .acoes .btn {
+    width: 100%;
+  }
+}
