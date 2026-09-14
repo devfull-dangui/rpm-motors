@@ -79,6 +79,112 @@ main {
   }
 }
 
+/* Banner da loja ---------------------------------------------------- */
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-3);
+  flex-wrap: wrap;
+  padding: var(--espaco-4) var(--espaco-3);
+  border-radius: var(--raio);
+  color: #fff;
+  background: linear-gradient(135deg, #1b1b1f 0%, #3a1215 60%, var(--cor-primaria-escura) 100%);
+}
+
+.hero__logo {
+  width: 88px;
+  height: 88px;
+  flex-shrink: 0;
+}
+
+.hero h1 {
+  margin: 0.25rem 0;
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  letter-spacing: 0.02em;
+}
+
+.hero__selo {
+  display: inline-block;
+  margin: 0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.hero__texto {
+  margin: 0 0 var(--espaco-2);
+  opacity: 0.85;
+}
+
+.hero__vantagens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.hero__vantagens li::before {
+  content: '✓ ';
+  color: #ff9aa0;
+}
+
+/* Seções e selos ----------------------------------------------------- */
+
+.secao {
+  margin-top: var(--espaco-4);
+}
+
+.selo {
+  display: inline-block;
+  margin-top: var(--espaco-1);
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 999px;
+  color: var(--cor-texto-suave);
+  font-size: 0.78rem;
+}
+
+.selo--ativo {
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria);
+  color: #fff;
+}
+
+.card--selecionado {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 2px rgba(214, 40, 40, 0.15), var(--sombra);
+}
+
+.resumo {
+  padding: var(--espaco-3);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra);
+}
+
+.resumo h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.resumo__total {
+  margin-bottom: 0;
+  font-size: 1.35rem;
+}
+
+.resumo__total strong {
+  color: var(--cor-primaria);
+}
+
 /* Componentes ------------------------------------------------------- */
 
 .card {
@@ -158,6 +264,19 @@ main {
   outline-offset: 1px;
 }
 
+/* Texto de referência (placeholder): claro o suficiente para se distinguir
+   do valor digitado, escuro o suficiente para continuar legível. */
+.campo input::placeholder {
+  color: #8a8a94;
+  opacity: 1;
+}
+
+/* Campos só de números: dígitos de largura fixa, mais fáceis de conferir. */
+.campo-numerico {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
 .campo-erro {
   color: var(--cor-falha);
   font-size: 0.85rem;
@@ -194,13 +313,16 @@ main {
 
 .acoes {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
+  gap: var(--espaco-2);
   margin-top: var(--espaco-3);
+  padding-bottom: var(--espaco-4);
 }
 
 @media (max-width: 480px) {
   .acoes {
-    justify-content: stretch;
+    flex-direction: column-reverse;
   }
 
   .acoes .btn {
