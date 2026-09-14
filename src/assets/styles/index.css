@@ -1,8 +1,8 @@
 /* ---------------------------------------------------------------------
  * RPM Motors — CSS puro (sem framework). Um pequeno conjunto de classes
  * reutilizáveis para não repetir estilo em cada página (mesmo objetivo de
- * um framework, mas escrito por nós, dentro do que o módulo ensina:
- * variáveis CSS, flexbox/grid e media query). Ver critério 10 (Responsividade).
+ * um framework, dentro do que o módulo ensina:
+ * variáveis CSS, flexbox/grid e media query). Atendendo ao critério 10 (Responsividade).
  * ------------------------------------------------------------------- */
 
 :root {

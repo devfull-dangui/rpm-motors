@@ -1,11 +1,10 @@
 // RF01 — Catálogo da loja: array de objetos com id, nome, preço unitário e
-// quantidade. RF02 — Carrinho fixo: quais itens estão no carrinho e em que
+// quantidade. RF02 — Carrinho fixo: quais itens estão no carrinho e a
 // quantidade já vem definido aqui, na fonte de dados (`noCarrinho`), sem
 // inclusão/remoção pela interface.
 //
 // Catálogo RPM Motors — motos esportivas 0km, com preço sugerido de tabela no
-// Brasil (2026) e foto real (Wikimedia Commons, licença livre). Fontes e datas
-// de consulta documentadas em claude/estrutura-do-projeto.md, no projeto.
+// Brasil (2026) e foto real (Wikimedia Commons, licença livre). 
 const produtos = [
   {
     id: 1,
