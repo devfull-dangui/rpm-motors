@@ -158,18 +158,53 @@ Validade: 4 dígitos (`1228` vira `12/28`). CVV: 3 dígitos.
 
 ## Investigação com o debugger
 
-> Preencher com a investigação feita antes da entrega.
->
-> Sugestão: DevTools (F12) → aba Sources → `src/hooks/usePagamento.js` →
-> breakpoint na linha do `limparNumeroCartao`. Envie o cartão `1111-1111 1111 1111`
-> e observe no painel Scope o valor antes e depois da limpeza, e o retorno de
-> `ehTentativaDeGolpe`.
+**O que eu queria entender.** O número do cartão passa por três etapas antes de
+a regra de fraude ser aplicada: a máscara de digitação insere espaços, o schema
+do Zod remove esses espaços na validação, e o hook `usePagamento` chama
+`limparNumeroCartao` de novo. Eu queria saber em que estado o valor chega em
+cada ponto — e se essa terceira limpeza não seria código redundante.
 
-Durante o desenvolvimento também foram investigados dois problemas de
-dependências: um conflito de `peerDependency` no `npm install` (ESLint 9 contra
-um plugin que só aceitava a versão 8) e vulnerabilidades reportadas pelo
-`npm audit`, identificadas com `npm audit --json` e corrigidas com atualizações
-pontuais de versão, sem `--force`.
+**Ferramenta e método.** Chrome DevTools, aba **Sources**. Com a aplicação
+rodando em `npm run dev`, abri `src/hooks/usePagamento.js` e coloquei um
+breakpoint na **linha 23**, que é onde o valor entra na regra de negócio:
+
+```js
+const numero = limparNumeroCartao(dados.numeroCartao)
+```
+
+Depois preenchi o formulário com o cartão `1111 1111 1111 1111` (digitando só os
+dígitos, já que a máscara insere os espaços) e enviei.
+
+**O que observei.** A execução pausou na linha 23 e o painel **Scope** mostrou:
+
+|          Variável          |                 Valor              |
+|---                         |---                                 |
+| `dados.numeroCartao`       | `"1111111111111111"` — sem espaços |
+| `numero` (após a linha 23) | `"1111111111111111"` — inalterado  |
+
+O valor **já chegou limpo** ao hook. Isso contrariou o que eu esperava: eu
+imaginava ver `"1111 1111 1111 1111"` e acompanhar os espaços sendo removidos
+ali. Usando **Step into (F11)** na linha 24, entrei em `ehTentativaDeGolpe`
+(`src/utils/pagamento.js`) e vi o `.every()` percorrer os 16 caracteres
+comparando cada um com `numeroCartao[0]`, retornando `true` — o que levou
+`resultado` a receber `'falha'` e a navegação para `/falha`. Repetindo com
+`4111 2222 3333 4444`, a mesma linha retornou `false` no primeiro dígito
+diferente e o fluxo seguiu para `/sucesso`.
+
+**Conclusão.** O breakpoint mostrou a ordem real das etapas: a máscara formata o
+que aparece na tela, o `.transform()` do schema Zod já devolve o número limpo ao
+`onSubmit`, e só então o hook recebe o dado. A chamada de `limparNumeroCartao`
+na linha 23 é, portanto, redundante **neste caminho** — mas decidi mantê-la: a
+função é idempotente (limpar um valor já limpo não muda nada) e o hook não deve
+depender de quem o chama ter feito a limpeza antes. Se amanhã o
+`processarCompra` for chamado de outro lugar, a regra continua protegida.
+
+Durante o desenvolvimento também investiguei dois problemas de dependências: um
+conflito de `peerDependency` no `npm install` (ESLint 9 contra um plugin que só
+aceitava a versão 8) e vulnerabilidades reportadas pelo `npm audit` — o relatório
+em texto não indicava qual pacote respondia pela severidade *high*, e foi o
+`npm audit --json` que revelou o advisory exato. Corrigi com atualizações
+pontuais de versão, sem `npm audit fix --force`.
 
 ## Melhorias futuras
 
