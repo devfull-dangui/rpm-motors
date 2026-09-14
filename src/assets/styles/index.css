@@ -142,6 +142,32 @@ main {
   margin-top: var(--espaco-4);
 }
 
+/* O carrinho vive na mesma página do catálogo, então ganha um painel próprio
+   (fundo tingido da cor da marca + faixa superior) para não se confundir com
+   a vitrine logo acima. O total fica dentro do painel, junto dos itens. */
+.secao--carrinho {
+  padding: var(--espaco-3);
+  border: 1px solid #f0d3d3;
+  border-top: 5px solid var(--cor-primaria);
+  border-radius: var(--raio);
+  background: #fdf2f2;
+}
+
+.secao--carrinho__topo {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  flex-wrap: wrap;
+}
+
+.secao--carrinho__topo h2 {
+  margin: 0;
+}
+
+.secao--carrinho .selo {
+  margin-top: 0;
+}
+
 .selo {
   display: inline-block;
   margin-top: var(--espaco-1);

@@ -25,11 +25,9 @@ function Carrinho() {
         <header className="hero">
           <img className="hero__logo" src={logo} alt="" />
           <div>
-            <p className="hero__selo">Concessionária de esportivas</p>
+            <p className="hero__selo">Concessionária de motos esportivas</p>
             <h1>{NOME_LOJA}</h1>
-            <p className="hero__texto">
-              Motos esportivas 0km selecionadas para quem leva a estrada a sério.
-            </p>
+            <p className="hero__texto">Motos 0km, para quem gosta de aventura.</p>
             <ul className="hero__vantagens">
               <li>Entrega em todo o Brasil</li>
               <li>Garantia de fábrica</li>
@@ -56,8 +54,14 @@ function Carrinho() {
           </div>
         </section>
 
-        <section className="secao" aria-labelledby="carrinho-titulo">
-          <h2 id="carrinho-titulo">Meu carrinho</h2>
+        <section className="secao secao--carrinho" aria-labelledby="carrinho-titulo">
+          <div className="secao--carrinho__topo">
+            <h2 id="carrinho-titulo">Meu carrinho</h2>
+            <span className="selo selo--ativo">
+              {itens.length} {itens.length === 1 ? 'item' : 'itens'}
+            </span>
+          </div>
+
           <div className="grid grid--produtos mt-2">
             {itens.map((item) => (
               <ItemCarrinho
@@ -70,11 +74,11 @@ function Carrinho() {
               />
             ))}
           </div>
-        </section>
 
-        <div className="secao">
-          <ResumoCompra total={formatarReais(total)} quantidadeItens={itens.length} />
-        </div>
+          <div className="mt-3">
+            <ResumoCompra total={formatarReais(total)} quantidadeItens={itens.length} />
+          </div>
+        </section>
 
         <div className="acoes">
           <a className="btn btn--secundario" href="#catalogo">
