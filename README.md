@@ -5,7 +5,7 @@ catálogo, carrinho, pagamento e resultado da compra.
 
 Mini-Projeto Avaliativo — Front-End React T1/T2, Módulo 2, Semana 07.
 
-🎥 **Vídeo de apresentação:** [assistir](COLE_AQUI_O_LINK_DO_VIDEO)
+🎥 **Vídeo de apresentação:** [assistir](https://drive.google.com/file/d/1kjCwMvLfxaHJLntr1Rb7haqD9sLdIj-q/view?usp=sharing)
 
 ## O problema
 
